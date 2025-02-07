@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: 'poppins', sans-serif;
+            box-sizing: border-box;
+            background: #e3f9ff;
+
+        }
+
+        .container{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .calculator{
+            background-color: #523a4e;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .calculator form input{
+            border: 0;
+            outline: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.2);
+            background: transparent;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            margin: 10px;
+        }
+        form .display{
+            display: flex;
+            justify-content: flex-end;
+            margin: 20px 0;
+        }
+        form .display input{
+            text-align: right;
+            flex: 1;
+            font-size: 45px;
+            box-shadow: none;
+        }
+        form input.equal{
+            width: 400px;
+        }
+        form input.operator{
+            color: #33ffd8;
+        }
+        .areye{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .thebody{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .basicCal{
+            padding: 30px;
+            color: #523a4e;
+            text-align: right;
+
+        }
+        a {
+            text-decoration: none;
+            animation-name: example;
+            animation-duration: 4s;
+            animation-iteration-count: infinite; /* Makes it repeat forever */
+            animation-timing-function: linear; /* Smooth transition */
+            color: #523a4e;
+            font-weight: bold;
+            font-size: larger;
+        }
+
+        @keyframes example {
+            100%   { color: #523a4e; }
+            25%  { color: #ac1996; }
+            100% { color: black; }
+        }
+
+        /*e thoma mo*/
+        
+    </style>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tax Calculator</title>
+
+    </head>
+    <body>
+        <div class="basicCal">
+            <a href="basicCal.html">Basic Calculator</a>
+        </div>
+
+        <div class="thebody">
+            <h1>
+                Tax Calculator 
+            </h1>
+            
+        </div>
+        <div class="container">
+            <div class="calculator">
+                <form>
+                    <div class="display" >
+                        <input type="text" name="display" id="income">
+                    </div>
+                    <div class="areye">
+                        <input type="button" value="AC" onclick="display.value = '' " class="operator">
+                        <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0, -1)" class="operator">
+                        <input type="button" value="." onclick="display.value += '.' " class="operator">
+
+                    </div>
+                    <div>
+                        <input type="button" value="Calculate" class="equal" onclick="taxCal()">
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </body>
+    <script>
+        let inc =document.getElementById("income");
+        function taxCal (){
+            let money = parseFloat(inc.value);
+            let chelete = 0; 
+            const errorhandle = document.getElementById('error');
+            let finale = 0
+            //errro handling
+
+            if(!money){
+                inc.value = 'Enter a value';
+                return;
+            } else if(money < 12000){
+                inc.value = 'You do not qualify';
+                return;
+            }
+            if(money <= 237100){
+                chelete = money * 0.18;
+            } else if(money <= 370500){
+                chelete = money * 0.26;
+            } else if(money <= 512801){
+                chelete = money * 0.31;
+            } else if(money <= 673000){
+                chelete = money * 0.36;
+            } else if(money <= 857900){
+                chelete = money * 0.39;
+            } else if(money <= 1817000){
+                chelete = money * 0.41;
+            } else if(money > 1817000){
+                chelete = money * 0.45;
+            }
+ 
+            inc.value= chelete;
+            finale = money - chelete;
+            alert('Gross: ' + money + '\nTax: ' + chelete + "\n Net: " + finale)
+
+            
+        }
+    </script>
+</html>

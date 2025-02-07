@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SA Tax Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #e3f9ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+
+
+        .title {
+            color: #523a4e;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(107, 47, 188, 0.2);
+            z-index: 2;
+        }
+
+        .calculator {
+            background-color: #523a4e;
+            padding: 2rem;
+            border-radius: 2rem;
+            box-shadow: 0 8px 20px rgba(107, 47, 188, 0.2);
+            max-width: 500px;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #33ffd8;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-size: 20px;
+            color: #fff;
+            cursor: pointer;
+            margin: 10px;        }
+
+        .currency-symbol {
+            position: absolute;
+            right: 1rem;
+            bottom: 1rem;
+            color: #33ffd8;
+            font-weight: bold;
+            visibility: hidden;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #6b2fbc;
+            box-shadow: 0 0 10px rgba(107, 47, 188, 0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 1rem;
+            background-color: #6b4e66;
+            color: #33ffd8;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 47, 188, 0.2);
+        }
+
+        .results {
+            background-color: #4f344a;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e7c6ff;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .result-label {
+            color: #33ffd8;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 1.2rem;
+            color: #887f7f;
+        }
+
+        .error {
+            color: #ff4d7c;
+            background-color: #4f344a;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .basicCal{
+            padding: 30px;
+            color: #523a4e;
+
+        }
+        a {
+            text-decoration: none;
+            animation-name: example;
+            animation-duration: 4s;
+            animation-iteration-count: infinite; /* Makes it repeat forever */
+            animation-timing-function: linear; /* Smooth transition */
+            color: #523a4e;
+            font-weight: bold;
+            font-size: larger;
+        }
+        @keyframes example {
+            100%   { color: #523a4e; }
+            25%  { color: #ac1996; }
+            100% { color: black; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="basicCal">
+        <a href="basicCal.html">Basic Calculator</a>
+    </div>
+
+    <h1 class="title">Tax Calculator♣️ </h1>
+
+
+    <div class="calculator">
+        <div class="error" id="error"></div>
+       
+        <div class="input-group">
+            <label for="income">Annual Income </label>
+            <input type="number" id="income" placeholder="Enter your annual income ">
+            <span class="currency-symbol">ZAR</span>
+        </div>
+        
+        <button class="calculate-btn" onclick="calculateTax()">Calculate</button>
+        <div class="results" id="results">
+            <div class="result-item">
+                <div class="result-label">Tax Amount: </div>
+                <div class="result-value" id="tax-amount"></div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Net: </div>
+                <div class="result-value" id="net-income"></div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Annual Net: </div>
+                <div class="result-value" id="yearly-amount"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateTaxAmount(income) {
+            if (income <= 237100) {
+                return income * 0.18;
+            } else if (income <= 370500) {
+                return (income ) * 0.26;
+            } else if (income <= 512800) {
+                return  (income ) * 0.31;
+            } else if (income <= 673000) {
+                return (income) * 0.36;
+            } else if (income <= 857900) {
+                return (income) * 0.39;
+            } else if (income <= 1817000) {
+                return (income ) * 0.41;
+            } else {
+                return (income) * 0.45;
+            }
+        }
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-ZA', {
+                style: 'currency',
+                currency: 'ZAR',
+                minimumFractionDigits: 2
+            }).format(amount);
+        }
+
+        function calculateTax() {
+            const income = parseFloat(document.getElementById('income').value);
+            const errorElement = document.getElementById('error');
+            const resultsElement = document.getElementById('results');
+
+            // Reset display
+            errorElement.style.display = 'none';
+            resultsElement.classList.remove('show');
+
+            // Validate input
+            if  (income < 0) {
+                errorElement.textContent = '⚠️ Please enter a valid income amount';
+                errorElement.style.display = 'block';
+                return;
+            } else if (!income ){
+                errorElement.textContent = '😒 Atleast enter something';
+                errorElement.style.display = 'block';
+            } else  if (income < 94188){
+                errorElement.textContent = 'Poverty is loud neh 😂 ';
+                errorElement.style.display = 'block';
+                return;
+       
+            }
+
+            // Calculate tax
+            const tax = calculateTaxAmount(income);
+            const netIncome = income - tax;
+            const monthlyIncome = netIncome / 12;
+
+            // Display results
+            document.getElementById('tax-amount').textContent = formatCurrency(tax);
+            document.getElementById('net-income').textContent = formatCurrency(monthlyIncome);
+            document.getElementById('yearly-amount').textContent = formatCurrency(netIncome);
+           
+            resultsElement.classList.add('show');
+        }
+    </script>
+</body>
+</html>
