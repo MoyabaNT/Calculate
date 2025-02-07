@@ -63,22 +63,26 @@
             text-align: right;
 
         }
-        a {
+        .linkothers{
+            display: flex;
+            gap: 10px;
+        }
+        .linkto{
+            width: 10%;
+            padding: 1rem;
+            border: none;
+            border-radius: 1rem;
+            background-color: #6b4e66;
+            color: #33ffd8;
             text-decoration: none;
-            animation-name: example;
-            animation-duration: 4s;
-            animation-iteration-count: infinite; /* Makes it repeat forever */
-            animation-timing-function: linear; /* Smooth transition */
-            color: #523a4e;
             font-weight: bold;
             font-size: larger;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
-        @keyframes example {
-            100%   { color: #523a4e; }
-            25%  { color: #ac1996; }
-            100% { color: black; }
-        }
 
         
     </style>
@@ -88,10 +92,13 @@
 
     </head>
     <body>
-        <div class="tax">
-            <a href="Tax.html">Tax Calculator</a>
+        <div class="linkothers">
+            <a class="linkto" href="basicCal.html">Basic</a>
+            <a class="linkto" href="Tax.html">Tax</a>
+        
         </div>
-
+    
+    
         <div class="thebody">
             <h1>
                 Basic Calculator 

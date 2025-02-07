@@ -148,32 +148,33 @@
             margin-bottom: 1rem;
             display: none;
         }
-        .basicCal{
-            padding: 30px;
-            color: #523a4e;
-
+        .linkothers{
+            display: flex;
+            gap: 10px;
         }
-        a {
+        .linkto{
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 1rem;
+            background-color: #6b4e66;
+            color: #33ffd8;
             text-decoration: none;
-            animation-name: example;
-            animation-duration: 4s;
-            animation-iteration-count: infinite; /* Makes it repeat forever */
-            animation-timing-function: linear; /* Smooth transition */
-            color: #523a4e;
             font-weight: bold;
             font-size: larger;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
         }
-        @keyframes example {
-            100%   { color: #523a4e; }
-            25%  { color: #ac1996; }
-            100% { color: black; }
-        }
+
 
     </style>
 </head>
 <body>
-    <div class="basicCal">
-        <a href="basicCal.html">Basic Calculator</a>
+    <div class="linkothers">
+        <a class="linkto" href="basicCal.html">Basic</a>
+        <a class="linkto" href="Tax.html">Tax</a>
+    
     </div>
 
     <h1 class="title">Tax Calculator♣️ </h1>
